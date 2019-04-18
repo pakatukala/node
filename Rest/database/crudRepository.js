@@ -38,3 +38,23 @@ module.exports.insertData = (data) => {
             }
     })
 }
+
+module.exports.find = (data) => {
+    return new Promise((resolve, reject) => {
+        try{
+                data.model.find(data.qurey, data.excludeFields, data.pagination).then(docs => {
+                    resolve({
+                        result: docs,
+                        status: constants.databaseStatus.ENTITY_FETCHED
+                    })
+                }).catch(err =>{
+                    reject({
+                        error: err.message,
+                        status: constants.databaseStatus.DATABASE_ERROR
+                    })
+                })
+        }catch(err){
+            console.log("Something went wrong in the crudRepository : find Data", err)
+        }
+})
+}

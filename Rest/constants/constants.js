@@ -17,6 +17,8 @@ module.exports = {
     },
     serviceStatus: {
         USER_CREATED_SUCCESSFULLY: 'User Created Successfully',
-        USER_LIST_FETCHED_SUCCESSFULLY: 'User list fetched Successfully'
+        USER_LIST_FETCHED_SUCCESSFULLY: 'User list fetched Successfully',
+        USER_UPDATED_SUCCESSFULLY: 'User updated Successfully',
+        USER_DELETED_SUCCESSFULLY: 'User deleted Successfully'
     }
 }

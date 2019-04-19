@@ -58,3 +58,43 @@ module.exports.find = (data) => {
         }
 })
 }
+
+module.exports.findOneAndUpdate = (data) => {
+    return new Promise((resolve, reject) => {
+        try{
+                data.model.findOneAndUpdate(data.findQuery, data.updateQuery).then(docs => {
+                    resolve({
+                        result: docs,
+                        status: constants.databaseStatus.ENTITY_MODIFIED
+                    })
+                }).catch(err =>{
+                    reject({
+                        error: err.message,
+                        status: constants.databaseStatus.DATABASE_ERROR
+                    })
+                })
+        }catch(err){
+            console.log("Something went wrong in the crudRepository : findOneAndUpdate Data", err)
+        }
+})
+}
+
+module.exports.deleteOne = (data) => {
+    return new Promise((resolve, reject) => {
+        try{
+                data.model.deleteOne(data.findQuery).then(docs => {
+                    resolve({
+                        result: docs,
+                        status: constants.databaseStatus.ENTITY_DELETED
+                    })
+                }).catch(err =>{
+                    reject({
+                        error: err.message,
+                        status: constants.databaseStatus.DATABASE_ERROR
+                    })
+                })
+        }catch(err){
+            console.log("Something went wrong in the crudRepository : deleteOne Data", err)
+        }
+})
+}

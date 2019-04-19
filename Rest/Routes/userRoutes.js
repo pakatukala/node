@@ -7,5 +7,7 @@ const userSchema = require('../Models/api/userSchema')
 
 router.post('/', JoiSchemaValidation.valdateBody(userSchema.createUserSchema), userController.createUser)
 router.get('/list', userController.getCustomer)
-
+router.get('/list/:userId', userController.getCustomer)
+router.put('/update/:userId', userController.updateCustomer)
+router.delete('/delete/:userId', userController.removeCustomer)
 module.exports = router;

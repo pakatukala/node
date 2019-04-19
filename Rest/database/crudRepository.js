@@ -79,10 +79,10 @@ module.exports.findOneAndUpdate = (data) => {
 })
 }
 
-module.exports.deleteOne = (data) => {
+module.exports.findByIdAndRemove = (data) => {
     return new Promise((resolve, reject) => {
         try{
-                data.model.deleteOne(data.findQuery).then(docs => {
+                data.model.findByIdAndRemove(data.findQuery).then(docs => {
                     resolve({
                         result: docs,
                         status: constants.databaseStatus.ENTITY_DELETED
@@ -94,7 +94,7 @@ module.exports.deleteOne = (data) => {
                     })
                 })
         }catch(err){
-            console.log("Something went wrong in the crudRepository : deleteOne Data", err)
+            console.log("Something went wrong in the crudRepository : findOneAndDelete Data", err)
         }
 })
 }

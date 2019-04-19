@@ -38,9 +38,7 @@ const crudRepository = require('../database/crudRepository')
         let responseObj = {}
         try{
             let data = {
-              findQuery: {
-                  _id: mongoose.Types.ObjectId(serviceData.userId)
-              },
+              query:{},
               model: User,
               excludeFields: ''
             }
@@ -60,6 +58,33 @@ const crudRepository = require('../database/crudRepository')
             return responseObj = constants.responseObj
         }
         
+    }
+    
+    module.exports.getCustomerList = async (serviceData) => {
+        let responseObj = {}
+        try{
+            let data = {
+              findQuery: {
+                  _id: mongoose.Types.ObjectId(serviceData.userId)
+              },
+              model: User,
+              excludeFields: ''
+            }
+            let responseFromDatabase = await crudRepository.find(data) 
+            switch(responseFromDatabase.status){
+                case constants.databaseStatus.ENTITY_FETCHED:
+                responseObj.body = responseFromDatabase.result
+                responseObj.status = constants.serviceStatus.USER_FETCHED_SUCCESSFULLY
+                break
+                default:
+                responseObj = constants.responseObj
+                break
+            }
+            return responseObj
+        }catch(err){
+            console.log('Something went wrong in userService get single Customer', err)
+            return responseObj = constants.responseObj
+        }   
     }
 
     module.exports.updateCustomer = async (serviceData) => {
@@ -102,9 +127,9 @@ const crudRepository = require('../database/crudRepository')
         }catch(err){
             console.log('Something went wrong in userService updateCustomer', err)
             return responseObj = constants.responseObj
-        }
-        
+        }  
     }
+
     module.exports.removeCustomer = async (serviceData) => {
         let responseObj = {}
         try{
@@ -114,7 +139,7 @@ const crudRepository = require('../database/crudRepository')
                 },
                 model: User,
               }
-            let responseFromDatabase = await crudRepository.deleteOne(data)
+            let responseFromDatabase = await crudRepository.findByIdAndRemove(data)
            
             switch(responseFromDatabase.status){
                 case constants.databaseStatus.ENTITY_DELETED:

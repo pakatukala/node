@@ -52,6 +52,33 @@ module.exports.getCustomer = async (req, res, next) => {
     }
 }
 
+module.exports.getCustomerList = async (req, res, next) => {
+    let responseObj = {}
+    try{
+            let data = {
+                userId: req.params.id
+            }
+            let responseFromService = await userService.getCustomerList(data)
+            switch(responseFromService.status){
+                case constants.serviceStatus.USER_FETCHED_SUCCESSFULLY:
+                responseObj.status = 200;
+                responseObj.message = constants.serviceStatus.USER_FETCHED_SUCCESSFULLY;
+                responseObj.body = responseFromService.body;
+                break
+                default:
+                    responseObj = constants.responseObj
+                break
+            }
+
+          return  res.status(responseObj.status).send(responseObj)
+    }catch(err){
+        console.log("Something went wrong in the controller get single user", err)
+        responseObj = constants.responseObj
+        return  res.status(responseObj.status).send(responseObj)
+
+    }
+}
+
 module.exports.updateCustomer = async (req, res, next) => {
     let responseObj = {}
     try{

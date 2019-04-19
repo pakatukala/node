@@ -56,7 +56,7 @@ module.exports.getCustomerList = async (req, res, next) => {
     let responseObj = {}
     try{
             let data = {
-                userId: req.params.id
+                userId: req.params.userId
             }
             let responseFromService = await userService.getCustomerList(data)
             switch(responseFromService.status){

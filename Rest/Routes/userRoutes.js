@@ -9,5 +9,5 @@ router.post('/', JoiSchemaValidation.valdateBody(userSchema.createUserSchema), u
 router.get('/list', userController.getCustomer)
 router.get('/list/:userId', userController.getCustomerList)
 router.put('/update/:userId', userController.updateCustomer)
-router.delete('/delete/:id', userController.removeCustomer)
+router.delete('/delete/:userId', userController.removeCustomer)
 module.exports = router;

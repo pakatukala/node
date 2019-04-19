@@ -42,7 +42,7 @@ module.exports.insertData = (data) => {
 module.exports.find = (data) => {
     return new Promise((resolve, reject) => {
         try{
-                data.model.find(data.qurey, data.excludeFields, data.pagination).then(docs => {
+                data.model.find(data.findQuery, data.excludeFields, data.pagination).then(docs => {
                     resolve({
                         result: docs,
                         status: constants.databaseStatus.ENTITY_FETCHED
@@ -79,10 +79,10 @@ module.exports.findOneAndUpdate = (data) => {
 })
 }
 
-module.exports.findByIdAndRemove = (data) => {
+module.exports.deleteOne = (data) => {
     return new Promise((resolve, reject) => {
         try{
-                data.model.findByIdAndRemove(data.findQuery).then(docs => {
+                data.model.deleteOne(data.findQuery).then(docs => {
                     resolve({
                         result: docs,
                         status: constants.databaseStatus.ENTITY_DELETED

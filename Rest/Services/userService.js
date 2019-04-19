@@ -139,7 +139,7 @@ const crudRepository = require('../database/crudRepository')
                 },
                 model: User,
               }
-            let responseFromDatabase = await crudRepository.findByIdAndRemove(data)
+            let responseFromDatabase = await crudRepository.deleteOne(data)
            
             switch(responseFromDatabase.status){
                 case constants.databaseStatus.ENTITY_DELETED:
